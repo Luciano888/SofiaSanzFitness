@@ -8,7 +8,6 @@ export default function Header() {
           <li className={styles.navItem}><a href="#inicio" className={styles.navLink}>Inicio</a></li>
           <li className={styles.navItem}><a href="#planes">Planes</a></li>
           <li className={styles.navItem}><a href="#testimonios">Testimonios</a></li>
-          <li className={styles.navItem}><a href="#contacto">Contacto</a></li>
         </ul>
       </nav>
     </header>

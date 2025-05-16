@@ -1,6 +1,7 @@
 .section {
   padding: 2rem;
   background-color: var(--color2);
+  text-align: center;
 }
 .testimonios {
   display: flex;
