@@ -1,7 +1,7 @@
 .header {
   background-color: var(--color2);
-  padding: 1rem;
   text-align: center;
+  height: 79px;
 }
 .navList {
   list-style: none;
@@ -16,4 +16,16 @@
   text-decoration: none;
   color: black;
   font-weight: bold;
+}
+
+.navList {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  list-style: none;
+  padding: 0;
+}
+
+.logo {
+  margin-right: auto; /* Para que el logo quede a la izquierda */
 }
