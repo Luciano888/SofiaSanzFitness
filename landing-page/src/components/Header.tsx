@@ -3,7 +3,7 @@ import styles from './styles/Header.module.css';
 
 export default function Header() {
   return (
-    <header className={styles.header}>
+    <header id="inicio" className={styles.header}>
       <nav>
         <ul className={styles.navList}>
           <li className={styles.logo}>

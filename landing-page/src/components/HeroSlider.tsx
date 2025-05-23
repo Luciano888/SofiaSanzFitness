@@ -23,7 +23,7 @@ export default function HeroSlider() {
   };
 
   return (
-    <section id="inicio" className={styles.slider}>
+    <section className={styles.slider}>
       <Slider {...settings}>
         {images.map((src, i) => (
           <div key={i} className={styles.slide}>
