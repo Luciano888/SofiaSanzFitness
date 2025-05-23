@@ -7,9 +7,7 @@ export default function Header() {
       <nav>
         <ul className={styles.navList}>
           <li className={styles.logo}>
-            <a href="#inicio">
-              <Image src="/logo.jpg" alt="Logo" width={100} height={79} />
-            </a>
+            <Image src="/logo.png" alt="Logo" width={100} height={79} />
           </li>
           <li className={styles.navItem}><a href="#inicio" className={styles.navLink}>Inicio</a></li>
           <li className={styles.navItem}><a href="#planes">Planes</a></li>
