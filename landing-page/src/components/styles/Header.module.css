@@ -16,7 +16,7 @@
 }
 
 .navItem a {
-  color: white;
+  color: #A70377;
   text-decoration: none;
   font-weight: 500;
   display: block; /* necesario para que el fondo cubra el área */
