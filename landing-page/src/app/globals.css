@@ -11,3 +11,9 @@ body {
 .slick-dots {
   position: static!important;
 }
+a:-webkit-any-link {
+    text-decoration: none;
+}
+a{
+  color: #A70377;
+}
