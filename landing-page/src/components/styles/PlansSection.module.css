@@ -2,7 +2,14 @@
   padding: 2rem;
   background-color: var(--color1);
   text-align: center;
+  scroll-margin-top: 65px;
 }
+
+.titulo {
+  margin: 0px!important;
+  padding-bottom: 0.83rem;
+}
+
 .cards {
   display: flex;
   gap: 1rem;
@@ -51,4 +58,20 @@
   border-radius: 12px;
   flex: 1;
   max-width: 300px;
+}
+
+.formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.formulario input,
+.formulario textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
 }

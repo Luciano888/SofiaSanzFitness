@@ -17,3 +17,13 @@ a:-webkit-any-link {
 a{
   color: #A70377;
 }
+button {
+  font: 16px Raleway, sans-serif;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+button:hover {
+  background-color:#A70377!important;
+}
