@@ -13,6 +13,7 @@ import {
 export default function PlansSection() {
   const [formVisibleIndex, setFormVisibleIndex] = useState<number | null>(null);
   const formRefs = useRef<HTMLFormElement[]>([]);
+  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
 
   const planes = [
     {
@@ -24,6 +25,15 @@ export default function PlansSection() {
         { icono: <FaBook />, texto: "E-books y guías" },
         { icono: <FaHeartbeat />, texto: "Seguimiento y rutinas" },
       ],
+      descripcion: `
+        Acceso a tu plan de entrenamiento desde la app
+        • Rutinas con videos demostrativos y descripción técnica de los ejercicios
+        • Visualización de series, repeticiones, descansos y cargas
+        • Registro de progreso: peso, hidratación, medidas corporales
+        • E-books de recetas saludables y guías de alimentación
+        • Actualizaciones periódicas de tus entrenamientos
+        • Todo desde tu celular o computadora, en una app fácil de usar
+      `,
     },
     {
       nombre: "Plan de Alimentación y Entrenamiento",
@@ -34,6 +44,14 @@ export default function PlansSection() {
         { icono: <FaMobileAlt />, texto: "App con entrenamientos" },
         { icono: <FaBook />, texto: "Recetas y progreso" },
       ],
+      descripcion: `
+        • Plan de alimentación diseñado por un nutricionista asignado.
+        • Plan adaptado a tus objetivos, tu composición corporal, tus horarios y tu estilo de vida.
+        • Entrenamiento personalizado a través de la app (videos, series, repeticiones, descanso, carga e hidratación).
+        • Seguimiento de tus progresos y cargas de entrenamiento.
+        • Acceso a e-books de recetas saludables.
+        Todo desde una misma aplicación, accesible desde cualquier dispositivo.
+      `,
     },
     {
       nombre: "Método wellness «VIP»",
@@ -44,6 +62,18 @@ export default function PlansSection() {
         { icono: <FaHeartbeat />, texto: "Clases exclusivas" },
         { icono: <FaUserFriends />, texto: "Coaching y referidos" },
       ],
+      descripcion: `
+        • Plan nutricional adaptado a tu cuerpo, objetivos y tiempos, realizado por un nutricionista asignado.
+        • Seguimiento médico con deportólogo y endocrinólogo si necesitás suplementación.
+        • Coaching motivacional con psicólogo especializado en deporte.
+        • Clases de yoga para potenciar tu bienestar físico y emocional.
+        • Taller de gimnasia hipopresiva para fortalecer el core y mejorar postura.
+        • Taller de hipertrofia de piernas para ganar fuerza y volumen muscular.
+        • Acompañamiento constante durante todo el proceso.
+        • Garantía de devolución del 100% si no ves cambios en 3 meses.
+        • 50% de descuento en tu renovación para seguir progresando.
+        • Programa de referidos: invitá a alguien y accedé a beneficios exclusivos.
+      `,
     },
   ];
 
@@ -61,7 +91,12 @@ export default function PlansSection() {
       <h2 className={styles.titulo}>Planes de Entrenamiento</h2>
       <div className={styles.cardsContainer}>
         {planes.map((plan, index) => (
-          <div key={index} className={`${styles.card} rounded-2xl shadow-lg`}>
+          <div
+            key={index}
+            className={`${styles.card} rounded-2xl shadow-lg`}
+            onMouseEnter={() => setHoveredCard(index)}
+            onMouseLeave={() => setHoveredCard(null)}
+          >
             {/* Imagen destacada */}
             <div className={styles.imageContainer}>
               <img
@@ -71,8 +106,8 @@ export default function PlansSection() {
               />
             </div>
 
-            {/* Contenido */}
-            <div className={`${styles.content} text-center p-4`}>
+            {/* Contenido estático visible por defecto */}
+            <div className={`${styles.staticContent} text-center p-4`}>
               <h3 className={styles.tituloCard}>{plan.nombre}</h3>
               <p className="text-lg text-gray-600 mb-3">{plan.precio}</p>
 
@@ -95,21 +130,49 @@ export default function PlansSection() {
               >
                 Quiero inscribirme
               </button>
-
-              {/* Formulario */}
-              {formVisibleIndex === index && (
-                <form
-                  className={`${styles.formulario} mt-4`}
-                  id={`formulario-inscripcion-${index}`}
-                  ref={(el) => (formRefs.current[index] = el!)}
-                >
-                  <input type="text" placeholder="Tu nombre" required />
-                  <input type="email" placeholder="Tu correo" required />
-                  <textarea placeholder="¿Tenés alguna consulta?"></textarea>
-                  <button type="submit">Enviar</button>
-                </form>
-              )}
             </div>
+
+            {/* Tarjeta de descripción deslizante (overlay) */}
+            <div
+              className={`${styles.overlayDescription} ${
+                hoveredCard === index ? styles.showOverlay : ""
+              }`}
+            >
+              <h3 className={styles.overlayTituloCard}>{plan.nombre}</h3> {/* Opcional: repetir el título */}
+              <p className={styles.overlayPrecio}>{plan.precio}</p> {/* Opcional: repetir el precio */}
+              <ul className={styles.descriptionList}>
+                {plan.descripcion.split('\n').filter(line => line.trim() !== '').map((line, i) => (
+                  <li key={i}>
+                    {line.trim().startsWith('•') ? '' : '✓ '} {/* Si no empieza con •, agrega un ✓ */}
+                    {line.trim().replace(/^•\s*/, '')} {/* Elimina el • si existe */}
+                  </li>
+                ))}
+              </ul>
+              {/* Botón dentro del overlay, o puedes mantener uno solo en la parte de abajo de la tarjeta principal */}
+              <button
+                className={styles.botonOverlay}
+                onClick={() =>
+                  setFormVisibleIndex(formVisibleIndex === index ? null : index)
+                }
+              >
+                Quiero inscribirme
+              </button>
+            </div>
+
+
+            {/* Formulario (fuera del flujo del hover para que no se deslice con el overlay) */}
+            {formVisibleIndex === index && (
+              <form
+                className={`${styles.formulario} mt-4`}
+                id={`formulario-inscripcion-${index}`}
+                ref={(el) => (formRefs.current[index] = el!)}
+              >
+                <input type="text" placeholder="Tu nombre" required />
+                <input type="email" placeholder="Tu correo" required />
+                <textarea placeholder="¿Tenés alguna consulta?"></textarea>
+                <button type="submit">Enviar</button>
+              </form>
+            )}
           </div>
         ))}
       </div>
