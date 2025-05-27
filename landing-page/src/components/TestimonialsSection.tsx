@@ -9,7 +9,7 @@ export default function TestimonialsSection() {
 
   return (
     <section id="testimonios" className={styles.section}>
-      <h2>Testimonios</h2>
+      <h2 className={styles.titulo}>Testimonios</h2>
       <div className={styles.testimonios}>
         {testimonios.map((t) => (
           <div key={t.nombre} className={styles.card}>

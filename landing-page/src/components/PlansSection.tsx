@@ -75,6 +75,7 @@ export default function PlansSection() {
 
   return (
     <section id="planes" className={styles.section}>
+      <br />
       <h2 className={styles.titulo}>Planes de Entrenamiento</h2>
       <div className={styles.cardsContainer}>
         {planes.map((plan, index) => (
