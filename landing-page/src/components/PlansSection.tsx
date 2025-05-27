@@ -1,49 +1,58 @@
-// PlansSection.js
-'use client';
-import { useState, useRef, useEffect } from 'react';
-import styles from './styles/PlansSection.module.css';
-import { FaDumbbell, FaAppleAlt, FaHeartbeat } from 'react-icons/fa'; // íconos
+"use client";
+import { useState, useRef, useEffect } from "react";
+import styles from "./styles/PlansSection.module.css";
+import {
+  FaMobileAlt,
+  FaAppleAlt,
+  FaHeartbeat,
+  FaBook,
+  FaUserMd,
+  FaUserFriends,
+} from "react-icons/fa";
 
 export default function PlansSection() {
-  const [formVisibleIndex, setFormVisibleIndex] = useState(null);
-  const formRefs = useRef([]);
+  const [formVisibleIndex, setFormVisibleIndex] = useState<number | null>(null);
+  const formRefs = useRef<HTMLFormElement[]>([]);
 
   const planes = [
     {
-      nombre: 'Plan de Entrenamiento',
-      precio: '$20',
-      imagen: 'anual.jpg',
+      nombre: "Plan de Entrenamiento",
+      precio: "$20",
+      imagen: "anual.jpg",
       iconos: [
-        { icono: <FaDumbbell />, texto: 'Rutinas personalizadas' },
-        { icono: <FaHeartbeat />, texto: 'Seguimiento de progreso' },
-        { icono: <FaAppleAlt />, texto: 'Videos técnicos' },
+        { icono: <FaMobileAlt />, texto: "App fácil de usar" },
+        { icono: <FaBook />, texto: "E-books y guías" },
+        { icono: <FaHeartbeat />, texto: "Seguimiento y rutinas" },
       ],
     },
     {
-      nombre: 'Entrenamiento + Alimentación',
-      precio: '$40',
-      imagen: 'mensual.jpg',
+      nombre: "Plan de Alimentación y Entrenamiento",
+      precio: "$40",
+      imagen: "mensual.jpg",
       iconos: [
-        { icono: <FaAppleAlt />, texto: 'Plan alimenticio' },
-        { icono: <FaDumbbell />, texto: 'Ejercicios en app' },
-        { icono: <FaHeartbeat />, texto: 'Adaptado a objetivos' },
+        { icono: <FaAppleAlt />, texto: "Nutrición personalizada" },
+        { icono: <FaMobileAlt />, texto: "App con entrenamientos" },
+        { icono: <FaBook />, texto: "Recetas y progreso" },
       ],
     },
     {
-      nombre: 'Método wellness «VIP»',
-      precio: '$60',
-      imagen: 'trimestral.jpg',
+      nombre: "Método wellness «VIP»",
+      precio: "$60",
+      imagen: "trimestral.jpg",
       iconos: [
-        { icono: <FaHeartbeat />, texto: 'Seguimiento médico' },
-        { icono: <FaAppleAlt />, texto: 'Nutrición personalizada' },
-        { icono: <FaDumbbell />, texto: 'Coaching deportivo' },
+        { icono: <FaUserMd />, texto: "Soporte médico" },
+        { icono: <FaHeartbeat />, texto: "Clases exclusivas" },
+        { icono: <FaUserFriends />, texto: "Coaching y referidos" },
       ],
     },
   ];
 
   useEffect(() => {
     if (formVisibleIndex !== null && formRefs.current[formVisibleIndex]) {
-      formRefs.current[formVisibleIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+      formRefs.current[formVisibleIndex].scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
     }
   }, [formVisibleIndex]);
 
@@ -52,33 +61,55 @@ export default function PlansSection() {
       <h2 className={styles.titulo}>Planes de Entrenamiento</h2>
       <div className={styles.cardsContainer}>
         {planes.map((plan, index) => (
-          <div key={index} className={styles.card}>
-            <img src={plan.imagen} alt={plan.nombre} className={styles.imagen} />
-            <h3>{plan.nombre}</h3>
-            <p className={styles.precio}>{plan.precio}</p>
-            <div className={styles.iconos}>
-              {plan.iconos.map((item, i) => (
-                <div key={i} className={styles.iconoTexto}>
-                  {item.icono}
-                  <span>{item.texto}</span>
-                </div>
-              ))}
+          <div key={index} className={`${styles.card} rounded-2xl shadow-lg`}>
+            {/* Imagen destacada */}
+            <div className={styles.imageContainer}>
+              <img
+                src={plan.imagen}
+                alt={plan.nombre}
+                className={styles.imagen}
+              />
             </div>
-            <button
-              className={styles.boton}
-              onClick={() => setFormVisibleIndex(formVisibleIndex === index ? null : index)}
-            >
-              Quiero inscribirme
-            </button>
 
-            {formVisibleIndex === index && (
-              <form className={styles.formulario} ref={(el) => (formRefs.current[index] = el)}>
-                <input type="text" placeholder="Tu nombre" required />
-                <input type="email" placeholder="Tu correo" required />
-                <textarea placeholder="¿Tenés alguna consulta?"></textarea>
-                <button type="submit">Enviar</button>
-              </form>
-            )}
+            {/* Contenido */}
+            <div className={`${styles.content} text-center p-4`}>
+              <h3 className="text-xl font-semibold mb-1">{plan.nombre}</h3>
+              <p className="text-lg text-gray-600 mb-3">{plan.precio}</p>
+
+              {/* Fila horizontal de iconos */}
+              <div className={styles.iconosRow}>
+                {plan.iconos.map((item, i) => (
+                  <div key={i} className={styles.iconoItem}>
+                    <div className={styles.icono}>{item.icono}</div>
+                    <span className={styles.textoIcono}>{item.texto}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Botón */}
+              <button
+                className={styles.boton}
+                onClick={() =>
+                  setFormVisibleIndex(formVisibleIndex === index ? null : index)
+                }
+              >
+                Quiero inscribirme
+              </button>
+
+              {/* Formulario */}
+              {formVisibleIndex === index && (
+                <form
+                  className={`${styles.formulario} mt-4`}
+                  id={`formulario-inscripcion-${index}`}
+                  ref={(el) => (formRefs.current[index] = el!)}
+                >
+                  <input type="text" placeholder="Tu nombre" required />
+                  <input type="email" placeholder="Tu correo" required />
+                  <textarea placeholder="¿Tenés alguna consulta?"></textarea>
+                  <button type="submit">Enviar</button>
+                </form>
+              )}
+            </div>
           </div>
         ))}
       </div>

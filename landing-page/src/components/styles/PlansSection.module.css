@@ -1,75 +1,95 @@
-.section {
+.sectionPlanes {
   padding: 2rem;
-  background-color: var(--color1);
-  text-align: center;
-  scroll-margin-top: 65px;
+  background-color: #ffe3e3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
 }
 
-.titulo {
-  margin-bottom: 2rem;
+.tituloSeccion {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #b1005d;
+  margin-bottom: 1rem;
 }
 
 .cardsContainer {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: row;
   justify-content: center;
   gap: 1.5rem;
+  flex-wrap: wrap;
 }
 
 .card {
-  background: #ffe0e8;
-  border-radius: 12px;
-  width: 280px;
+  background-color: white;
+  border-radius: 1.5rem;
+  padding: 1rem;
+  width: 300px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.imageContainer {
+  width: 100%;
+  height: 160px;
   overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  padding-bottom: 1rem;
+  border-radius: 1rem;
 }
 
 .imagen {
   width: 100%;
-  height: 160px;
+  height: 100%;
   object-fit: cover;
+  border-radius: 1rem;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 0.8rem;
+}
+
+.tituloCard {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin: 0.5rem 0 0.2rem 0;
 }
 
 .precio {
-  font-weight: bold;
-  margin-top: 0.5rem;
+  font-size: 1rem;
+  color: #222;
+  margin-bottom: 0.8rem;
 }
 
-.iconos {
+.iconosRow {
+  display: flex;
+  justify-content: center;
+  gap: 1.2rem;
+  margin-bottom: 1rem;
+  flex-wrap: nowrap;
+}
+
+.iconoItem {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.75rem;
-  margin: 1rem 0;
+  width: 70px;
 }
 
-.iconoTexto {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.95rem;
-}
-
-.iconoTexto svg {
-  font-size: 1.2rem;
+.icono {
+  font-size: 1.5rem;
   color: var(--color3);
 }
 
-.boton {
-  margin-top: 0.5rem;
-  background-color: var(--color3);
-  color: white;
-  border: none;
-  padding: 0.6rem 1rem;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.formulario {
-  margin-top: 1rem;
-  padding: 0 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+.textoIcono {
+  font-size: 0.75rem;
+  text-align: center;
+  color: #444;
+  margin-top: 0.3rem;
 }
