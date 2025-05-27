@@ -1,32 +1,35 @@
+.titulo {
+  text-align: center;
+}
 .sectionPlanes {
-  padding: 2rem;
+  padding: 2rem 1rem;
   background-color: #ffe3e3;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2rem;
+  gap: 1rem;
 }
 
 .tituloSeccion {
   font-size: 2rem;
   font-weight: bold;
   color: #b1005d;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .cardsContainer {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  gap: 1.5rem;
+  gap: 1rem;
   flex-wrap: wrap;
 }
 
 .card {
   background-color: white;
   border-radius: 1.5rem;
-  padding: 1rem;
-  width: 300px;
+  padding: 0.8rem;
+  width: 280px;
   height: auto;
   display: flex;
   flex-direction: column;
@@ -36,7 +39,7 @@
 
 .imageContainer {
   width: 100%;
-  height: 160px;
+  height: 130px;
   overflow: hidden;
   border-radius: 1rem;
 }
@@ -52,26 +55,27 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 0.8rem;
+  margin-top: 0.5rem;
 }
 
 .tituloCard {
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: bold;
-  margin: 0.5rem 0 0.2rem 0;
+  text-align: center;
+  margin: 0.3rem 0 0.2rem 0;
 }
 
 .precio {
-  font-size: 1rem;
+  font-size: 0.9rem;
   color: #222;
-  margin-bottom: 0.8rem;
+  margin-bottom: 0.6rem;
 }
 
 .iconosRow {
   display: flex;
   justify-content: center;
-  gap: 1.2rem;
-  margin-bottom: 1rem;
+  gap: 1rem;
+  margin-bottom: 0.8rem;
   flex-wrap: nowrap;
 }
 
@@ -79,17 +83,17 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 70px;
+  width: 65px;
 }
 
 .icono {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   color: var(--color3);
 }
 
 .textoIcono {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   text-align: center;
   color: #444;
-  margin-top: 0.3rem;
+  margin-top: 0.2rem;
 }

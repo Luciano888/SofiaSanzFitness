@@ -73,7 +73,7 @@ export default function PlansSection() {
 
             {/* Contenido */}
             <div className={`${styles.content} text-center p-4`}>
-              <h3 className="text-xl font-semibold mb-1">{plan.nombre}</h3>
+              <h3 className={styles.tituloCard}>{plan.nombre}</h3>
               <p className="text-lg text-gray-600 mb-3">{plan.precio}</p>
 
               {/* Fila horizontal de iconos */}
