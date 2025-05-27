@@ -2,8 +2,7 @@
 .titulo {
   text-align: center;
   color: #b1005d;
-  font-size: 2.5rem;
-  margin-bottom: 2rem;
+  font-size: 2rem;
 }
 
 .section {
@@ -27,18 +26,19 @@
 .card {
   background-color: white;
   border-radius: 1.5rem;
-  padding: 0.8rem;
-  width: 300px; /* Ancho más ancho para que los textos de los íconos quepan */
-  height: auto; /* Altura auto para ajustarse al contenido */
+  padding: 0;  /* Sacamos el padding para que la imagen llegue al borde */
+  width: 375px;
+  height: 340px;
   display: flex;
   flex-direction: column;
   align-items: center;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-  overflow: hidden; /* Muy importante para ocultar el overlay inicial */
-  position: relative; /* Base para posicionar el overlay */
+  overflow: hidden;
+  position: relative;
   transition: all 0.3s ease-in-out;
-  padding-bottom: 5rem; /* Espacio para el botón "Quiero inscribirme" fijo */
+  padding-bottom: 5rem; /* Esto podés mantener si es para el botón */
 }
+
 
 .card:hover {
   transform: translateY(-5px);
@@ -48,17 +48,17 @@
 /* Image Container */
 .imageContainer {
   width: 100%;
-  height: 130px;
+  height: 160px;
   overflow: hidden;
-  border-radius: 1rem;
-  margin-bottom: 0.8rem;
+  border-radius: 1.5rem 1.5rem 0 0; /* Que coincida con el border-radius superior de la card */
+  margin-bottom: 0; /* Quitá el margin para que no haya espacio */
 }
 
 .imagen {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 1rem;
+  border-radius: 1.5rem 1.5rem 0 0; /* Mismo border-radius que container */
 }
 
 /* Static Content (always visible) */
@@ -72,25 +72,24 @@
 }
 
 .tituloCard {
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: bold;
   text-align: center;
-  margin: 0.3rem 0 0.5rem 0;
+  margin: 0.9rem 0 0 0;
   color: #b1005d;
 }
 
 .precio {
   font-size: 1.1rem;
   color: #222;
-  margin-bottom: 1rem;
   font-weight: 600;
+  margin: 1.5rem 0 1.5rem 0;
 }
 
 .iconosRow {
   display: flex;
   justify-content: center;
   gap: 1rem; /* Ajustar gap para que los textos quepan */
-  margin-bottom: 1.2rem;
   flex-wrap: nowrap;
 }
 
@@ -119,10 +118,11 @@
   top: 100%; /* Inicia completamente fuera de la vista, abajo de la tarjeta */
   left: 0;
   width: 100%;
-  height: calc(100% - 130px); /* Ocupa el espacio debajo de la imagen */
+  height: calc(100% - 160px); /* Ocupa el espacio debajo de la imagen */
   background-color: white; /* Color de la tarjeta deslizante */
   border-radius: 0 0 1.5rem 1.5rem; /* Solo las esquinas inferiores redondeadas */
-  padding: 1.5rem 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -132,21 +132,25 @@
 }
 
 .overlayDescription.showOverlay {
-  top: 130px; /* Sube y se posiciona justo debajo de la imagen al hover */
+  top: 160px; /* Sube y se posiciona justo debajo de la imagen al hover */
 }
 
-.overlayTituloCard { /* Estilos para el título dentro del overlay */
-  font-size: 1.2rem;
+.overlayTituloCard {
+  /* Estilos para el título dentro del overlay */
+  font-size: 1rem;
   font-weight: bold;
   color: #b1005d;
-  margin-bottom: 0.5rem;
+  margin: 0.9rem 0px 5px 0px;
+  padding: 0;
 }
 
-.overlayPrecio { /* Estilos para el precio dentro del overlay */
-    font-size: 1.1rem;
-    color: #222;
-    margin-bottom: 1rem;
-    font-weight: 600;
+.overlayPrecio {
+  /* Estilos para el precio dentro del overlay */
+  font-size: 1.1rem;
+  color: #222;
+  margin: 5px 0 10px 0;
+  padding: 0;
+  font-weight: 600;
 }
 
 .descriptionList {
@@ -154,8 +158,8 @@
   padding: 0;
   margin: 0;
   text-align: left;
-  font-size: 0.85rem;
-  color: #555;
+  font-size: 0.7rem;
+  color: black;
   line-height: 1.4;
   width: 100%; /* Asegura que la lista ocupe el ancho disponible */
   flex-grow: 1; /* Permite que la lista crezca y ocupe el espacio */
@@ -177,16 +181,13 @@
   flex-shrink: 0;
 }
 .descriptionList li::first-letter {
-    font-weight: bold; /* Make the checkmark bold */
-    color: #b1005d; /* Apply color to the checkmark */
+  font-weight: bold; /* Make the checkmark bold */
+  color: #b1005d; /* Apply color to the checkmark */
 }
 
-
-/* Botones */
-.boton { /* Botón principal (si lo mantienes visible por defecto) */
+.boton {
   background-color: #b1005d;
   color: white;
-  padding: 0.8rem 1.5rem;
   border: none;
   border-radius: 2rem;
   font-size: 1rem;
@@ -194,36 +195,16 @@
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
   position: absolute; /* Fijo en la parte inferior de la tarjeta padre */
-  bottom: 1.5rem; /* Ajustar posición para que no haya espacio extra */
+  bottom: 1rem; /* Ajustar posición para que no haya espacio extra */
   left: 50%;
   transform: translateX(-50%);
-  width: 80%;
+  width: 50%;
   z-index: 2; /* Asegura que el botón esté por encima del overlay */
 }
 
 .boton:hover {
   background-color: #8c0049;
   transform: translateX(-50%) translateY(-2px);
-}
-
-.botonOverlay { /* Botón dentro del overlay (si lo usas) */
-  background-color: #b1005d;
-  color: white;
-  padding: 0.8rem 1.5rem;
-  border: none;
-  border-radius: 2rem;
-  font-size: 1rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  margin-top: auto; /* Empuja el botón al final del overlay */
-  width: 80%;
-  z-index: 3; /* Asegura que esté por encima de todo */
-}
-
-.botonOverlay:hover {
-  background-color: #8c0049;
-  transform: translateY(-2px);
 }
 
 /* Formulario Styles */
@@ -251,7 +232,6 @@
   opacity: 1;
 }
 
-
 .formulario input,
 .formulario textarea {
   padding: 0.6rem;
@@ -260,7 +240,8 @@
   font-size: 0.9rem;
 }
 
-.formulario button[type="submit"] { /* Especificar type="submit" para no confundir con el botón de "Quiero inscribirme" */
+.formulario button[type="submit"] {
+  /* Especificar type="submit" para no confundir con el botón de "Quiero inscribirme" */
   background-color: #b1005d;
   color: white;
   padding: 0.7rem 1rem;

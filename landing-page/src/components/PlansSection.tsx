@@ -30,10 +30,7 @@ export default function PlansSection() {
         • Rutinas con videos demostrativos y descripción técnica de los ejercicios
         • Visualización de series, repeticiones, descansos y cargas
         • Registro de progreso: peso, hidratación, medidas corporales
-        • E-books de recetas saludables y guías de alimentación
-        • Actualizaciones periódicas de tus entrenamientos
-        • Todo desde tu celular o computadora, en una app fácil de usar
-      `,
+        • E-books de recetas saludables y guías de alimentación`,
     },
     {
       nombre: "Plan de Alimentación y Entrenamiento",
@@ -48,10 +45,7 @@ export default function PlansSection() {
         • Plan de alimentación diseñado por un nutricionista asignado.
         • Plan adaptado a tus objetivos, tu composición corporal, tus horarios y tu estilo de vida.
         • Entrenamiento personalizado a través de la app (videos, series, repeticiones, descanso, carga e hidratación).
-        • Seguimiento de tus progresos y cargas de entrenamiento.
-        • Acceso a e-books de recetas saludables.
-        Todo desde una misma aplicación, accesible desde cualquier dispositivo.
-      `,
+        • Seguimiento de tus progresos y cargas de entrenamiento.`,
     },
     {
       nombre: "Método wellness «VIP»",
@@ -66,14 +60,7 @@ export default function PlansSection() {
         • Plan nutricional adaptado a tu cuerpo, objetivos y tiempos, realizado por un nutricionista asignado.
         • Seguimiento médico con deportólogo y endocrinólogo si necesitás suplementación.
         • Coaching motivacional con psicólogo especializado en deporte.
-        • Clases de yoga para potenciar tu bienestar físico y emocional.
-        • Taller de gimnasia hipopresiva para fortalecer el core y mejorar postura.
-        • Taller de hipertrofia de piernas para ganar fuerza y volumen muscular.
-        • Acompañamiento constante durante todo el proceso.
-        • Garantía de devolución del 100% si no ves cambios en 3 meses.
-        • 50% de descuento en tu renovación para seguir progresando.
-        • Programa de referidos: invitá a alguien y accedé a beneficios exclusivos.
-      `,
+        • Clases de yoga para potenciar tu bienestar físico y emocional.`,
     },
   ];
 
@@ -109,7 +96,7 @@ export default function PlansSection() {
             {/* Contenido estático visible por defecto */}
             <div className={`${styles.staticContent} text-center p-4`}>
               <h3 className={styles.tituloCard}>{plan.nombre}</h3>
-              <p className="text-lg text-gray-600 mb-3">{plan.precio}</p>
+              <p className={styles.precio}>{plan.precio}</p>
 
               {/* Fila horizontal de iconos */}
               <div className={styles.iconosRow}>
@@ -138,27 +125,19 @@ export default function PlansSection() {
                 hoveredCard === index ? styles.showOverlay : ""
               }`}
             >
-              <h3 className={styles.overlayTituloCard}>{plan.nombre}</h3> {/* Opcional: repetir el título */}
-              <p className={styles.overlayPrecio}>{plan.precio}</p> {/* Opcional: repetir el precio */}
+              <h3 className={styles.overlayTituloCard}>{plan.nombre}</h3>{" "}
+              {/* Opcional: repetir el título */}
+              <p className={styles.overlayPrecio}>{plan.precio}</p>{" "}
+              {/* Opcional: repetir el precio */}
               <ul className={styles.descriptionList}>
-                {plan.descripcion.split('\n').filter(line => line.trim() !== '').map((line, i) => (
-                  <li key={i}>
-                    {line.trim().startsWith('•') ? '' : '✓ '} {/* Si no empieza con •, agrega un ✓ */}
-                    {line.trim().replace(/^•\s*/, '')} {/* Elimina el • si existe */}
-                  </li>
-                ))}
+                {plan.descripcion
+                  .split("\n")
+                  .filter((line) => line.trim() !== "")
+                  .map((line, i) => (
+                    <li key={i}>✓ {line.trim().replace(/^•\s*/, "")}</li>
+                  ))}
               </ul>
-              {/* Botón dentro del overlay, o puedes mantener uno solo en la parte de abajo de la tarjeta principal */}
-              <button
-                className={styles.botonOverlay}
-                onClick={() =>
-                  setFormVisibleIndex(formVisibleIndex === index ? null : index)
-                }
-              >
-                Quiero inscribirme
-              </button>
             </div>
-
 
             {/* Formulario (fuera del flujo del hover para que no se deslice con el overlay) */}
             {formVisibleIndex === index && (
