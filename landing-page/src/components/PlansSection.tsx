@@ -12,8 +12,7 @@ import {
 
 export default function PlansSection() {
   const [formVisibleIndex, setFormVisibleIndex] = useState<number | null>(null);
-  const formRefs = useRef<HTMLFormElement[]>([]);
-  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+  const formRef = useRef<HTMLFormElement | null>(null);
 
   const planes = [
     {
@@ -65,10 +64,10 @@ export default function PlansSection() {
   ];
 
   useEffect(() => {
-    if (formVisibleIndex !== null && formRefs.current[formVisibleIndex]) {
-      formRefs.current[formVisibleIndex].scrollIntoView({
+    if (formRef.current && formVisibleIndex !== null) {
+      formRef.current.scrollIntoView({
         behavior: "smooth",
-        block: "center",
+        block: "start",
       });
     }
   }, [formVisibleIndex]);
@@ -79,13 +78,7 @@ export default function PlansSection() {
       <h2 className={styles.titulo}>Planes de Entrenamiento</h2>
       <div className={styles.cardsContainer}>
         {planes.map((plan, index) => (
-          <div
-            key={index}
-            className={`${styles.card} rounded-2xl shadow-lg`}
-            onMouseEnter={() => setHoveredCard(index)}
-            onMouseLeave={() => setHoveredCard(null)}
-          >
-            {/* Imagen destacada */}
+          <div key={index} className={`${styles.card} rounded-2xl shadow-lg`}>
             <div className={styles.imageContainer}>
               <img
                 src={plan.imagen}
@@ -94,12 +87,10 @@ export default function PlansSection() {
               />
             </div>
 
-            {/* Contenido estático visible por defecto */}
             <div className={`${styles.staticContent} text-center p-4`}>
               <h3 className={styles.tituloCard}>{plan.nombre}</h3>
               <p className={styles.precio}>{plan.precio}</p>
 
-              {/* Fila horizontal de iconos */}
               <div className={styles.iconosRow}>
                 {plan.iconos.map((item, i) => (
                   <div key={i} className={styles.iconoItem}>
@@ -109,7 +100,6 @@ export default function PlansSection() {
                 ))}
               </div>
 
-              {/* Botón */}
               <button
                 className={styles.boton}
                 onClick={() =>
@@ -120,16 +110,9 @@ export default function PlansSection() {
               </button>
             </div>
 
-            {/* Tarjeta de descripción deslizante (overlay) */}
-            <div
-              className={`${styles.overlayDescription} ${
-                hoveredCard === index ? styles.showOverlay : ""
-              }`}
-            >
-              <h3 className={styles.overlayTituloCard}>{plan.nombre}</h3>{" "}
-              {/* Opcional: repetir el título */}
-              <p className={styles.overlayPrecio}>{plan.precio}</p>{" "}
-              {/* Opcional: repetir el precio */}
+            <div className={`${styles.overlayDescription}`}>
+              <h3 className={styles.overlayTituloCard}>{plan.nombre}</h3>
+              <p className={styles.overlayPrecio}>{plan.precio}</p>
               <ul className={styles.descriptionList}>
                 {plan.descripcion
                   .split("\n")
@@ -139,23 +122,47 @@ export default function PlansSection() {
                   ))}
               </ul>
             </div>
-
-            {/* Formulario (fuera del flujo del hover para que no se deslice con el overlay) */}
-            {formVisibleIndex === index && (
-              <form
-                className={`${styles.formulario} mt-4`}
-                id={`formulario-inscripcion-${index}`}
-                ref={(el) => (formRefs.current[index] = el!)}
-              >
-                <input type="text" placeholder="Tu nombre" required />
-                <input type="email" placeholder="Tu correo" required />
-                <textarea placeholder="¿Tenés alguna consulta?"></textarea>
-                <button type="submit">Enviar</button>
-              </form>
-            )}
           </div>
         ))}
       </div>
+
+      {/* Formulario ancho al final */}
+      {formVisibleIndex !== null && (
+        <div className={styles.formWrapper}>
+          <form
+            ref={formRef}
+            className={styles.formularioAncho}
+            onSubmit={(e) => {
+              e.preventDefault();
+              alert("Formulario enviado");
+            }}
+          >
+            <h3>
+              Formulario de inscripción al{" "}
+              <strong>{planes[formVisibleIndex].nombre}</strong>
+            </h3>
+
+            <div className={styles.formGroup}>
+              <label htmlFor="nombre">Nombre</label>
+              <input type="text" id="nombre" name="nombre" required />
+            </div>
+
+            <div className={styles.formGroup}>
+              <label htmlFor="email">Email</label>
+              <input type="email" id="email" name="email" required />
+            </div>
+
+            <div className={styles.formGroup}>
+              <label htmlFor="consulta">Consulta</label>
+              <textarea id="consulta" name="consulta" rows={4}></textarea>
+            </div>
+
+            <button type="submit" className={styles.botonEnviar}>
+              Enviar
+            </button>
+          </form>
+        </div>
+      )}
     </section>
   );
 }

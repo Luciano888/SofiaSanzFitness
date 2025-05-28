@@ -4,7 +4,7 @@
   color: #b1005d;
   font-size: 2rem;
   padding-bottom: 0!important;
-  margin-bottom: 0!important;
+  margin: 0!important;
 }
 
 .section {
@@ -30,7 +30,7 @@
   border-radius: 1.5rem;
   padding: 0;  /* Sacamos el padding para que la imagen llegue al borde */
   width: 375px;
-  height: 330px;
+  height: 360px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -209,51 +209,65 @@
   transform: translateX(-50%) translateY(-2px);
 }
 
-/* Formulario Styles */
-.formulario {
+.formularioAncho h3 {
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.formGroup {
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
-  width: 100%;
-  padding: 1rem; /* Añadir padding al formulario */
-  box-sizing: border-box;
-  background-color: white; /* Fondo blanco para el formulario */
-  border-radius: 1rem;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  margin-top: 1rem; /* Margen superior para separarlo si es necesario */
-  /* Propiedades para la animación al mostrar/ocultar */
-  max-height: 0;
-  overflow: hidden;
-  opacity: 0;
-  transition: max-height 0.5s ease-out, opacity 0.5s ease-out;
+  margin-bottom: 1rem;
 }
 
-/* Cuando el formulario es visible (controlado por React state) */
-.formulario[style*="max-height"]:not([style*="max-height: 0px"]) {
-  max-height: 500px; /* Un valor grande para permitir la expansión */
-  opacity: 1;
+.formGroup label {
+  margin-bottom: 0.5rem;
+  font-weight: bold;
 }
 
-.formulario input,
-.formulario textarea {
-  padding: 0.6rem;
-  border: 1px solid #ddd;
+.formGroup input,
+.formGroup textarea {
+  padding: 0.75rem;
+  border: 1px solid #ccc;
   border-radius: 0.5rem;
-  font-size: 0.9rem;
+  font-size: 1rem;
 }
 
-.formulario button[type="submit"] {
-  /* Especificar type="submit" para no confundir con el botón de "Quiero inscribirme" */
+.botonEnviar {
+  font-size: 1rem;
+  font-weight: bold;
   background-color: #b1005d;
   color: white;
-  padding: 0.7rem 1rem;
   border: none;
-  border-radius: 0.5rem;
-  font-size: 0.9rem;
+  padding: 0.75rem 2rem;
+  border-radius: 2rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
-.formulario button[type="submit"]:hover {
-  background-color: #8c0049;
+.botonEnviar:hover {
+  background-color: #c94444;
+}
+
+.formWrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.formularioAncho {
+  width: 100%;
+  max-width: 700px;
+  padding: 2rem;
+  background-color: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border: 1px solid #e0e0e0;
+}
+
+.formularioAncho button {
+  display: block;
+  margin: 2rem auto 0;
 }
