@@ -1,0 +1,47 @@
+.aboutSection {
+  background-color: #fff0f5; /* tono rosa claro suave */
+  padding: 4rem 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  max-width: 1200px;
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.imageWrapper {
+  flex: 1;
+  min-width: 280px;
+  max-width: 400px;
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  border-radius: 1.5rem;
+  object-fit: cover;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.textWrapper {
+  flex: 2;
+  min-width: 280px;
+}
+
+.title {
+  font-size: 2rem;
+  color: #b1005d;
+  margin-bottom: 1rem;
+}
+
+.description {
+  font-size: 1rem;
+  color: #333;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
