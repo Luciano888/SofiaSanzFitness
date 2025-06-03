@@ -132,9 +132,33 @@ export default function PlansSection() {
           <form
             ref={formRef}
             className={styles.formularioAncho}
-            onSubmit={(e) => {
+            onSubmit={async (e) => {
               e.preventDefault();
-              alert("Formulario enviado");
+
+              const form = e.currentTarget;
+              const nombre = form.nombre.value;
+              const email = form.email.value;
+              const consulta = form.consulta.value;
+              const plan = planes[formVisibleIndex].nombre;
+
+              try {
+                const res = await fetch("/api/send-confirmation", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({ nombre, email, consulta, plan }),
+                });
+
+                if (res.ok) {
+                  alert("¡Formulario enviado con éxito! Revisá tu email.");
+                  form.reset();
+                  setFormVisibleIndex(null);
+                } else {
+                  alert("Error al enviar el correo. Intentá más tarde.");
+                }
+              } catch (err) {
+                console.error(err);
+                alert("Ocurrió un error al enviar el formulario.");
+              }
             }}
           >
             <h3>
