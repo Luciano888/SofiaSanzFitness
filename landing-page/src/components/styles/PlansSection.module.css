@@ -295,4 +295,70 @@
   }
 }
 
+/* Ocultamos botón "Ver detalles" y "Volver" en desktop */
+.mobileVerDetallesBtn,
+.mobileVolverBtn {
+  display: none;
+}
 
+/* Solo en mobile mostramos el botón "Ver detalles" y el overlay cuando está activo */
+@media (max-width: 640px) {
+  /* Ocultar overlay por defecto */
+  .overlayDescription {
+    top: 100% !important;
+    position: absolute !important;
+    z-index: 3 !important;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    background-color: white;
+    border-radius: 0 0 1.5rem 1.5rem;
+    transition: none !important;
+  }
+
+  /* Mostrar overlay cuando está activo */
+  .overlayDescription.showOverlayMobile {
+    top: 160px !important;
+    transition: top 0.4s ease-in-out !important;
+  }
+
+  /* Mostrar botón Ver detalles en mobile */
+  .mobileVerDetallesBtn {
+    display: inline-block;
+    margin-top: 1rem;
+    background-color: #b1005d;
+    color: white;
+    border: none;
+    border-radius: 2rem;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    width: 100%;
+    transition: background-color 0.3s ease;
+  }
+
+  .mobileVerDetallesBtn:hover {
+    background-color: #8c0049;
+  }
+
+  /* Botón Volver dentro del overlay */
+  .mobileVolverBtn {
+    display: inline-block;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    background-color: #b1005d;
+    color: white;
+    border: none;
+    border-radius: 2rem;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    width: 50%;
+    align-self: center;
+    transition: background-color 0.3s ease;
+  }
+
+  .mobileVolverBtn:hover {
+    background-color: #8c0049;
+  }
+}
