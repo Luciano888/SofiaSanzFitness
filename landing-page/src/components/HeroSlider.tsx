@@ -29,7 +29,7 @@ export default function HeroSlider() {
           <div key={i} className={styles.slide}>
             <img src={src} alt={`Slide ${i + 1}`} />
             <div className={styles.textOverlay}>
-              <h1>¡Bienvenida al entrenamiento con la profe!</h1>
+              <h1>Entrenemos juntas</h1>
               <p>Transformá tu cuerpo y mente</p>
             </div>
           </div>
