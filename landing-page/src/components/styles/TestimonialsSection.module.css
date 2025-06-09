@@ -5,28 +5,48 @@
 }
 
 .titulo {
-  text-align: center;
   font-size: 2rem;
-  padding-bottom: 0!important;
-  margin: 0!important;
+  margin: 0;
 }
 
-.filaTestimonios {
+.sliderContainer {
+  position: relative;
   display: flex;
-  gap: 2rem;
+  align-items: center;
   justify-content: center;
-  flex-wrap: wrap;
   margin-top: 2rem;
 }
 
+.flecha {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 1rem;
+  color: #333;
+}
+
+.flecha:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.sliderWrapper {
+  display: flex;
+  gap: 1rem;
+  overflow: hidden;
+  max-width: 1200px; /* o el ancho que prefieras */
+}
+
 .tarjetaTestimonio {
+  width: 300px;
+  flex-shrink: 0;
   background-color: #fff;
   border-radius: 12px;
   padding: 1.5rem;
-  padding-bottom: 0!important;
-  max-width: 300px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   text-align: left;
+  transition: transform 0.3s ease;
 }
 
 .tarjetaTestimonio img {
@@ -34,11 +54,6 @@
   height: auto;
   border-radius: 8px;
   margin-bottom: 1rem;
-}
-
-.tarjetaTestimonio h3 {
-  margin: 0.5rem 0;
-  font-size: 1.2rem;
 }
 
 .mensaje {
