@@ -11,7 +11,7 @@ import {
 } from "react-icons/fa";
 
 export default function PlansSection() {
-  const [formVisibleIndex, setFormVisibleIndex] = useState<number | null>(null);
+  const [overlayIndex, setOverlayIndex] = useState<number | null>(null);
   const formRef = useRef<HTMLFormElement | null>(null);
 
   const planes = [
@@ -64,13 +64,27 @@ export default function PlansSection() {
   ];
 
   useEffect(() => {
-    if (formRef.current && formVisibleIndex !== null) {
+    if (formRef.current && overlayIndex !== null) {
       formRef.current.scrollIntoView({
         behavior: "smooth",
         block: "start",
       });
     }
-  }, [formVisibleIndex]);
+  }, [overlayIndex]);
+
+  // Para cerrar overlay al hacer click afuera (opcional)
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      const cards = document.querySelectorAll(`.${styles.card}`);
+      let clickedInside = false;
+      cards.forEach((card) => {
+        if (card.contains(event.target as Node)) clickedInside = true;
+      });
+      if (!clickedInside) setOverlayIndex(null);
+    }
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, []);
 
   return (
     <section id="planes" className={styles.section}>
@@ -78,7 +92,12 @@ export default function PlansSection() {
       <h2 className={styles.titulo}>Planes de Entrenamiento</h2>
       <div className={styles.cardsContainer}>
         {planes.map((plan, index) => (
-          <div key={index} className={`${styles.card} rounded-2xl shadow-lg`}>
+          <div
+            key={index}
+            className={`${styles.card} rounded-2xl shadow-lg`}
+            // evitamos que click en overlay cierre inmediatamente
+            onClick={(e) => e.stopPropagation()}
+          >
             <div className={styles.imageContainer}>
               <img
                 src={plan.imagen}
@@ -103,14 +122,19 @@ export default function PlansSection() {
               <button
                 className={styles.boton}
                 onClick={() =>
-                  setFormVisibleIndex(formVisibleIndex === index ? null : index)
+                  setOverlayIndex(overlayIndex === index ? null : index)
                 }
               >
                 Quiero inscribirme
               </button>
             </div>
 
-            <div className={`${styles.overlayDescription}`}>
+            {/* Aquí agregamos la clase showOverlay según estado */}
+            <div
+              className={`${styles.overlayDescription} ${
+                overlayIndex === index ? styles.showOverlay : ""
+              }`}
+            >
               <h3 className={styles.overlayTituloCard}>{plan.nombre}</h3>
               <p className={styles.overlayPrecio}>{plan.precio}</p>
               <ul className={styles.descriptionList}>
@@ -127,7 +151,7 @@ export default function PlansSection() {
       </div>
 
       {/* Formulario ancho al final */}
-      {formVisibleIndex !== null && (
+      {overlayIndex !== null && (
         <div className={styles.formWrapper}>
           <form
             ref={formRef}
@@ -139,7 +163,7 @@ export default function PlansSection() {
               const nombre = form.nombre.value;
               const email = form.email.value;
               const consulta = form.consulta.value;
-              const plan = planes[formVisibleIndex].nombre;
+              const plan = planes[overlayIndex].nombre;
 
               try {
                 const res = await fetch("/api/send-confirmation", {
@@ -151,7 +175,7 @@ export default function PlansSection() {
                 if (res.ok) {
                   alert("¡Formulario enviado con éxito! Revisá tu email.");
                   form.reset();
-                  setFormVisibleIndex(null);
+                  setOverlayIndex(null);
                 } else {
                   alert("Error al enviar el correo. Intentá más tarde.");
                 }
@@ -163,7 +187,7 @@ export default function PlansSection() {
           >
             <h3>
               Formulario de inscripción al{" "}
-              <strong>{planes[formVisibleIndex].nombre}</strong>
+              <strong>{planes[overlayIndex].nombre}</strong>
             </h3>
 
             <div className={styles.formGroup}>

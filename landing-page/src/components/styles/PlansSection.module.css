@@ -133,6 +133,10 @@
   z-index: 1; /* Asegura que esté por encima del staticContent */
 }
 
+.card:hover .overlayDescription {
+  top: 160px;
+}
+
 .overlayDescription.showOverlay {
   top: 160px; /* Sube y se posiciona justo debajo de la imagen al hover */
 }
@@ -278,3 +282,17 @@
     padding: 1.5rem;
   }
 }
+
+/* Solo para que funcione con JS: cuando la clase showOverlay está activa */
+.overlayDescription.showOverlay {
+  top: 160px !important; /* Sube el overlay igual que con hover */
+}
+
+/* Mantené este hover para desktop */
+@media (hover: hover) and (pointer: fine) {
+  .card:hover .overlayDescription {
+    top: 160px;
+  }
+}
+
+
