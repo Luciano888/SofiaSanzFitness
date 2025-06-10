@@ -7,6 +7,7 @@
 .titulo {
   font-size: 2rem;
   margin: 0;
+  color: #b1005d;
 }
 
 .sliderContainer {
@@ -35,7 +36,9 @@
   display: flex;
   gap: 1rem;
   overflow: hidden;
-  max-width: 1200px; /* o el ancho que prefieras */
+  max-width: 1200px;
+  min-height: 420px; /* 🔒 Altura mínima estable para evitar saltos */
+  transition: min-height 0.3s ease; /* suave en caso de cambio */
 }
 
 .tarjetaTestimonio {
@@ -47,16 +50,37 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   text-align: left;
   transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 .tarjetaTestimonio img {
   width: 100%;
-  height: auto;
+  height: 260px; /* o el valor que prefieras */
+  object-fit: cover;
   border-radius: 8px;
   margin-bottom: 1rem;
 }
 
+
 .mensaje {
   font-size: 1rem;
   color: #333;
+  flex-grow: 1;
 }
+
+.sliderInner {
+  display: flex;
+  transition: transform 0.6s ease;
+}
+
+.tarjetaTestimonio {
+  width: 300px;
+  margin-right: 16px;
+}
+
+.tarjetaTestimonio:last-child {
+  margin-right: 0;
+}
+

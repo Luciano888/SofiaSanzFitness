@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import styles from "./styles/TestimonialsSection.module.css";
 
 export default function TestimonialsSection() {
@@ -21,22 +21,33 @@ export default function TestimonialsSection() {
     },
     {
       mensaje:
-        "Nunca pensé que podría volver a sentirme así con mi cuerpo. Gracias por todo el acompañamiento y empuje.",
+        "Te envío el chequeo de las 6 semanas. Bajé 8kg, me cambió el cuerpo, estoy fascinada con el resultado, el abdominal plano.",
       imagen: "/testimonio4.jpg",
     },
     {
       mensaje:
-        "¡Cambió mi vida! Más energía, mejor ánimo y una figura que no creía posible.",
+        "Mi semana 3 y 4. Tengo el cuerpo más definido, pude subir 3 kilos estoy muy contenta, a mí me cuesta mucho subir de peso así que gracias por ayudarme en esta meta que tengo.",
       imagen: "/testimonio5.jpg",
     },
     {
       mensaje:
-        "Estoy feliz con el progreso que tuve. Tu guía fue clave, ¡gracias infinitas!",
+        "Ya terminé el quinto challenge! Me fue súper bien, vi más cambios con el trabajo pesado e intenso! Vamos por más.",
       imagen: "/testimonio6.jpg",
     },
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [cardOffset, setCardOffset] = useState(0);
+  const cardRef = useRef(null);
+
+  useEffect(() => {
+    if (cardRef.current) {
+      const width = cardRef.current.offsetWidth;
+      const style = getComputedStyle(cardRef.current);
+      const marginRight = parseInt(style.marginRight || "0", 10);
+      setCardOffset(width + marginRight);
+    }
+  }, []);
 
   const handlePrev = () => {
     setCurrentIndex((prev) => Math.max(prev - 1, 0));
@@ -44,11 +55,9 @@ export default function TestimonialsSection() {
 
   const handleNext = () => {
     setCurrentIndex((prev) =>
-      Math.min(prev + 1, testimonios.length - 3)
+      Math.min(prev + 1, testimonios.length - 1)
     );
   };
-
-  const visibleTestimonios = testimonios.slice(currentIndex, currentIndex + 3);
 
   return (
     <section className={styles.testimonios} id="testimonios">
@@ -64,18 +73,32 @@ export default function TestimonialsSection() {
         </button>
 
         <div className={styles.sliderWrapper}>
-          {visibleTestimonios.map((testimonio, index) => (
-            <div key={index} className={styles.tarjetaTestimonio}>
-              <img src={testimonio.imagen} alt={`Testimonio ${index + 1}`} />
-              <p className={styles.mensaje}>{testimonio.mensaje}</p>
-            </div>
-          ))}
+          <div
+            className={styles.sliderInner}
+            style={{
+              transform: `translateX(-${currentIndex * cardOffset}px)`,
+            }}
+          >
+            {testimonios.map((testimonio, index) => (
+              <div
+                key={index}
+                ref={index === 0 ? cardRef : null}
+                className={styles.tarjetaTestimonio}
+              >
+                <img
+                  src={testimonio.imagen}
+                  alt={`Testimonio ${index + 1}`}
+                />
+                <p className={styles.mensaje}>{testimonio.mensaje}</p>
+              </div>
+            ))}
+          </div>
         </div>
 
         <button
           className={styles.flecha}
           onClick={handleNext}
-          disabled={currentIndex >= testimonios.length - 3}
+          disabled={currentIndex >= testimonios.length - 1}
         >
           ▶
         </button>
@@ -83,3 +106,4 @@ export default function TestimonialsSection() {
     </section>
   );
 }
+
