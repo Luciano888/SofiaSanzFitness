@@ -70,6 +70,10 @@
   flex-grow: 1;
 }
 
+.sliderWrapper {
+  overflow: hidden;
+}
+
 .sliderInner {
   display: flex;
   transition: transform 0.6s ease;

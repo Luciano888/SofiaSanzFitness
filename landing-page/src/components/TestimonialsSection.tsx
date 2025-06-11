@@ -38,25 +38,40 @@ export default function TestimonialsSection() {
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [cardOffset, setCardOffset] = useState(0);
+  const [maxIndex, setMaxIndex] = useState(testimonios.length - 1);
+
   const cardRef = useRef(null);
+  const wrapperRef = useRef(null);
 
   useEffect(() => {
-    if (cardRef.current) {
-      const width = cardRef.current.offsetWidth;
-      const style = getComputedStyle(cardRef.current);
-      const marginRight = parseInt(style.marginRight || "0", 10);
-      setCardOffset(width + marginRight);
-    }
-  }, []);
+    const calcularMaxIndex = () => {
+      if (cardRef.current && wrapperRef.current) {
+        const cardWidth = cardRef.current.offsetWidth;
+        const style = getComputedStyle(cardRef.current);
+        const marginRight = parseInt(style.marginRight || "0", 10);
+        const totalCardOffset = cardWidth + marginRight;
+
+        setCardOffset(totalCardOffset);
+
+        const wrapperWidth = wrapperRef.current.offsetWidth;
+        const visibleCards = Math.ceil(wrapperWidth / totalCardOffset);
+        const maxVisibleIndex = testimonios.length - visibleCards;
+
+        setMaxIndex(Math.max(0, maxVisibleIndex));
+      }
+    };
+
+    calcularMaxIndex();
+    window.addEventListener("resize", calcularMaxIndex);
+    return () => window.removeEventListener("resize", calcularMaxIndex);
+  }, [testimonios.length]);
 
   const handlePrev = () => {
     setCurrentIndex((prev) => Math.max(prev - 1, 0));
   };
 
   const handleNext = () => {
-    setCurrentIndex((prev) =>
-      Math.min(prev + 1, testimonios.length - 1)
-    );
+    setCurrentIndex((prev) => Math.min(prev + 1, maxIndex));
   };
 
   return (
@@ -72,7 +87,7 @@ export default function TestimonialsSection() {
           ◀
         </button>
 
-        <div className={styles.sliderWrapper}>
+        <div className={styles.sliderWrapper} ref={wrapperRef}>
           <div
             className={styles.sliderInner}
             style={{
@@ -85,10 +100,7 @@ export default function TestimonialsSection() {
                 ref={index === 0 ? cardRef : null}
                 className={styles.tarjetaTestimonio}
               >
-                <img
-                  src={testimonio.imagen}
-                  alt={`Testimonio ${index + 1}`}
-                />
+                <img src={testimonio.imagen} alt={`Testimonio ${index + 1}`} />
                 <p className={styles.mensaje}>{testimonio.mensaje}</p>
               </div>
             ))}
@@ -98,7 +110,7 @@ export default function TestimonialsSection() {
         <button
           className={styles.flecha}
           onClick={handleNext}
-          disabled={currentIndex >= testimonios.length - 1}
+          disabled={currentIndex >= maxIndex}
         >
           ▶
         </button>
@@ -106,4 +118,3 @@ export default function TestimonialsSection() {
     </section>
   );
 }
-
