@@ -40,20 +40,25 @@ export default function TestimonialsSection() {
   const [cardOffset, setCardOffset] = useState(0);
   const [maxIndex, setMaxIndex] = useState(testimonios.length - 1);
 
-  const cardRef = useRef(null);
-  const wrapperRef = useRef(null);
+  const cardRef = useRef<HTMLDivElement | null>(null);
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const calcularMaxIndex = () => {
       if (cardRef.current && wrapperRef.current) {
-        const cardWidth = cardRef.current.offsetWidth;
+        const wrapperWidth = wrapperRef.current.clientWidth;
+        const isMobile = window.innerWidth <= 768;
+
+        const cardWidth = isMobile
+          ? wrapperWidth
+          : cardRef.current.offsetWidth;
+
         const style = getComputedStyle(cardRef.current);
         const marginRight = parseInt(style.marginRight || "0", 10);
         const totalCardOffset = cardWidth + marginRight;
 
         setCardOffset(totalCardOffset);
 
-        const wrapperWidth = wrapperRef.current.offsetWidth;
         const visibleCards = Math.ceil(wrapperWidth / totalCardOffset);
         const maxVisibleIndex = testimonios.length - visibleCards;
 
