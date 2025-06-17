@@ -35,7 +35,7 @@ export default function PlansSection() {
     {
       nombre: "Plan de Alimentación y Entrenamiento",
       precio: "$40",
-      imagen: "mensual.jpg",
+      imagen: "trimestral2.jpg",
       iconos: [
         { icono: <FaAppleAlt />, texto: "Nutrición personalizada" },
         { icono: <FaMobileAlt />, texto: "App con entrenamientos" },
@@ -50,7 +50,7 @@ export default function PlansSection() {
     {
       nombre: "Método wellness «VIP»",
       precio: "$60",
-      imagen: "trimestral.jpg",
+      imagen: "competicion2.jpeg",
       iconos: [
         { icono: <FaUserMd />, texto: "Soporte médico" },
         { icono: <FaHeartbeat />, texto: "Clases exclusivas" },

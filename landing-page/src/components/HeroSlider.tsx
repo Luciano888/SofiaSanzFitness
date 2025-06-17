@@ -5,6 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 import styles from "./styles/HeroSlider.module.css";
 
 const images = [
+  "/sofia-horizontal3.jpeg",
   "/sofia-horizontal.jpg",
   "/sofia-horizontal2.jpg"
 ];
