@@ -1,0 +1,74 @@
+.header {
+  background-color: var(--color2);
+  text-align: center;
+  height: 65px;
+  top: 0;
+  z-index: 1000;
+}
+.navList {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  padding: 0;
+  margin: 0;
+  height: 65px;
+  align-items: center;
+  gap: 1rem;
+}
+
+.navItem a {
+  color: #A70377;
+  text-decoration: none;
+  font-weight: 500;
+  display: block; /* necesario para que el fondo cubra el área */
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.navItem a:hover {
+  background-color: #f06292; /* rosa al pasar el mouse */
+  color: white;
+}
+
+
+.menu {
+  margin-left: 1%;
+}
+
+.logo {
+  margin-right: auto; /* Para que el logo quede a la izquierda */
+}
+
+.slider {
+  height: 100vh;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.slide {
+  height: 100vh;
+  width: 100%;
+  position: relative;
+}
+
+.slide img {
+  object-fit: cover;
+  width: 100%;
+  height: 100vh;
+}
+
+.textOverlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  text-align: center;
+  z-index: 2;
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 2rem;
+  border-radius: 1rem;
+}
