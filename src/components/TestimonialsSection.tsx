@@ -1,9 +1,13 @@
-"use client";
-import { useState, useRef, useEffect } from "react";
-import styles from "./styles/TestimonialsSection.module.css";
+'use client';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/navigation';
+
+import { Navigation } from 'swiper/modules';
+import styles from './styles/TestimonialsSection.module.css';
 
 export default function TestimonialsSection() {
-  const testimonios = [
+const testimonios = [
     {
       mensaje:
         "¡Hablame de felicidad! Ya no sé de qué manera agradecerte por estos cambios. Obviamente falta muchísimo pero llevamos solo 5 meses y me enamoré de mí misma! Mil gracias.",
@@ -36,94 +40,40 @@ export default function TestimonialsSection() {
     },
   ];
 
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [cardOffset, setCardOffset] = useState(0);
-  const [maxIndex, setMaxIndex] = useState(testimonios.length - 1);
-
-  const cardRef = useRef<HTMLDivElement | null>(null);
-  const wrapperRef = useRef<HTMLDivElement | null>(null);
-
-useEffect(() => {
-  const calcularSliderDatos = () => {
-    if (cardRef.current && wrapperRef.current) {
-      const wrapperWidth = wrapperRef.current.clientWidth;
-
-      // 👇 Esta es la parte que preguntaste
-      const isMobile = window.innerWidth <= 768;
-      const cardWidth = isMobile
-        ? wrapperWidth
-        : cardRef.current.offsetWidth;
-
-      const style = getComputedStyle(cardRef.current);
-      const marginRight = parseInt(style.marginRight || "0", 10);
-      const totalCardOffset = cardWidth + (isMobile ? 0 : marginRight);
-
-      setCardOffset(totalCardOffset);
-
-      const totalWidth = testimonios.length * totalCardOffset;
-      const maxOffset = totalWidth - wrapperWidth;
-      const maxIndexCalc = Math.ceil(maxOffset / totalCardOffset);
-
-      setMaxIndex(Math.max(0, maxIndexCalc));
-    }
-  };
-
-  calcularSliderDatos();
-  window.addEventListener("resize", calcularSliderDatos);
-  return () => window.removeEventListener("resize", calcularSliderDatos);
-}, [testimonios.length]);
-
-
-
-  const handlePrev = () => {
-    setCurrentIndex((prev) => Math.max(prev - 1, 0));
-  };
-
-  const handleNext = () => {
-    setCurrentIndex((prev) => Math.min(prev + 1, maxIndex));
-  };
-
   return (
-    <section className={styles.testimonios} id="testimonios">
-      <h2 className={styles.titulo}>Testimonios</h2>
+<section className={styles.testimonios} id="testimonios">
+  <h2 className={styles.titulo}>Testimonios</h2>
 
-      <div className={styles.sliderContainer}>
-        <button
-          className={styles.flecha}
-          onClick={handlePrev}
-          disabled={currentIndex === 0}
-        >
-          ◀
-        </button>
+  <div className={styles.sliderWrapper}>
+    <Swiper
+      modules={[Navigation]}
+      navigation
+      spaceBetween={16}
+      breakpoints={{
+        0: {
+          slidesPerView: 1,
+        },
+        640: {
+          slidesPerView: 1.2,
+        },
+        768: {
+          slidesPerView: 2,
+        },
+        1024: {
+          slidesPerView: 3,
+        },
+      }}
+      className={styles.slider}
+    >
+      {testimonios.map((testimonio, index) => (
+        <SwiperSlide key={index} className={styles.tarjetaTestimonio}>
+          <img src={testimonio.imagen} alt={`Testimonio ${index + 1}`} />
+          <p className={styles.mensaje}>{testimonio.mensaje}</p>
+        </SwiperSlide>
+      ))}
+    </Swiper>
+  </div>
+</section>
 
-        <div className={styles.sliderWrapper} ref={wrapperRef}>
-          <div
-            className={styles.sliderInner}
-            style={{
-              transform: `translateX(-${currentIndex * cardOffset}px)`,
-            }}
-          >
-            {testimonios.map((testimonio, index) => (
-              <div
-                key={index}
-                ref={index === 0 ? cardRef : null}
-                className={styles.tarjetaTestimonio}
-              >
-                <img src={testimonio.imagen} alt={`Testimonio ${index + 1}`} />
-                <p className={styles.mensaje}>{testimonio.mensaje}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <button
-          className={styles.flecha}
-          onClick={handleNext}
-          disabled={currentIndex >= maxIndex}
-        >
-          ▶
-        </button>
-      </div>
-    </section>
   );
 }

@@ -32,3 +32,9 @@ html {
   scroll-behavior: smooth;
   scroll-padding-top: 65px; /* altura del header */
 }
+
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  color: #A70377 !important;
+  font-size: 1.5rem!important;
+}
