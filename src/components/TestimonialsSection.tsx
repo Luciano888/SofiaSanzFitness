@@ -43,33 +43,37 @@ export default function TestimonialsSection() {
   const cardRef = useRef<HTMLDivElement | null>(null);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
 
-  useEffect(() => {
-    const calcularMaxIndex = () => {
-      if (cardRef.current && wrapperRef.current) {
-        const wrapperWidth = wrapperRef.current.clientWidth;
-        const isMobile = window.innerWidth <= 768;
+useEffect(() => {
+  const calcularSliderDatos = () => {
+    if (cardRef.current && wrapperRef.current) {
+      const wrapperWidth = wrapperRef.current.clientWidth;
 
-        const cardWidth = isMobile
-          ? wrapperWidth
-          : cardRef.current.offsetWidth;
+      // 👇 Esta es la parte que preguntaste
+      const isMobile = window.innerWidth <= 768;
+      const cardWidth = isMobile
+        ? wrapperWidth
+        : cardRef.current.offsetWidth;
 
-        const style = getComputedStyle(cardRef.current);
-        const marginRight = parseInt(style.marginRight || "0", 10);
-        const totalCardOffset = cardWidth + marginRight;
+      const style = getComputedStyle(cardRef.current);
+      const marginRight = parseInt(style.marginRight || "0", 10);
+      const totalCardOffset = cardWidth + (isMobile ? 0 : marginRight);
 
-        setCardOffset(totalCardOffset);
+      setCardOffset(totalCardOffset);
 
-        const visibleCards = Math.ceil(wrapperWidth / totalCardOffset);
-        const maxVisibleIndex = testimonios.length - visibleCards;
+      const totalWidth = testimonios.length * totalCardOffset;
+      const maxOffset = totalWidth - wrapperWidth;
+      const maxIndexCalc = Math.ceil(maxOffset / totalCardOffset);
 
-        setMaxIndex(Math.max(0, maxVisibleIndex));
-      }
-    };
+      setMaxIndex(Math.max(0, maxIndexCalc));
+    }
+  };
 
-    calcularMaxIndex();
-    window.addEventListener("resize", calcularMaxIndex);
-    return () => window.removeEventListener("resize", calcularMaxIndex);
-  }, [testimonios.length]);
+  calcularSliderDatos();
+  window.addEventListener("resize", calcularSliderDatos);
+  return () => window.removeEventListener("resize", calcularSliderDatos);
+}, [testimonios.length]);
+
+
 
   const handlePrev = () => {
     setCurrentIndex((prev) => Math.max(prev - 1, 0));

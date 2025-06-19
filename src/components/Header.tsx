@@ -6,7 +6,7 @@ import styles from './styles/Header.module.css';
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
 
-const handleLinkClick = (e, id) => {
+const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
   e.preventDefault();
 
   setMenuOpen(false);
@@ -14,7 +14,7 @@ const handleLinkClick = (e, id) => {
   setTimeout(() => {
     const section = document.querySelector(id);
     const header = document.querySelector('header');
-    
+
     if (section) {
       const headerOffset = header?.offsetHeight || 0;
       const elementPosition = section.getBoundingClientRect().top + window.scrollY;
@@ -25,8 +25,9 @@ const handleLinkClick = (e, id) => {
         behavior: 'smooth',
       });
     }
-  }, 100); // deja tiempo a que el menú se cierre
+  }, 100);
 };
+
 
 
   return (
