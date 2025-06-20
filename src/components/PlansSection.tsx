@@ -12,12 +12,14 @@ import {
 
 export default function PlansSection() {
   const [formVisibleIndex, setFormVisibleIndex] = useState<number | null>(null);
-  const [mobileOverlayIndex, setMobileOverlayIndex] = useState<number | null>(null);
+  const [mobileOverlayIndex, setMobileOverlayIndex] = useState<number | null>(
+    null
+  );
   const formRef = useRef<HTMLFormElement | null>(null);
 
   const planes = [
     {
-      nombre: "Plan de Entrenamiento",
+      nombre: "Entrenamiento Personalizado",
       precio: "$20",
       imagen: "anual.jpg",
       iconos: [
@@ -26,14 +28,13 @@ export default function PlansSection() {
         { icono: <FaHeartbeat />, texto: "Seguimiento y rutinas" },
       ],
       descripcion: `
-        Acceso a tu plan de entrenamiento desde la app
-        • Rutinas con videos demostrativos y descripción técnica de los ejercicios
-        • Visualización de series, repeticiones, descansos y cargas
-        • Registro de progreso: peso, hidratación, medidas corporales
-        • E-books de recetas saludables y guías de alimentación`,
+        1. Rutina adaptada a tus objetivos, nivel y tiempos.
+        2. Acceso a app con videos, series, repeticiones y descansos.
+        3. Cambios de rutina y seguimiento cada 15 días.
+        4. Soporte constante para dudas y acompañamiento.`,
     },
     {
-      nombre: "Plan de Alimentación y Entrenamiento",
+      nombre: "Entrenamiento + Nutrición",
       precio: "$40",
       imagen: "trimestral2.jpg",
       iconos: [
@@ -42,13 +43,13 @@ export default function PlansSection() {
         { icono: <FaBook />, texto: "Recetas y progreso" },
       ],
       descripcion: `
-        • Plan de alimentación diseñado por un nutricionista asignado.
-        • Plan adaptado a tus objetivos, tu composición corporal, tus horarios y tu estilo de vida.
-        • Entrenamiento personalizado a través de la app (videos, series, repeticiones, descanso, carga e hidratación).
-        • Seguimiento de tus progresos y cargas de entrenamiento.`,
+        1. Todo lo incluido en el plan anterior.
+        2. Plan nutricional personalizado por nutricionista.
+        3. Seguimiento integral cada 15 días.
+        4. Asesoría continua y comunicación directa.`,
     },
     {
-      nombre: "Método wellness «VIP»",
+      nombre: "Método Wellness",
       precio: "$60",
       imagen: "competicion2.jpeg",
       iconos: [
@@ -57,10 +58,10 @@ export default function PlansSection() {
         { icono: <FaUserFriends />, texto: "Coaching y referidos" },
       ],
       descripcion: `
-        • Plan nutricional adaptado a tu cuerpo, objetivos y tiempos, realizado por un nutricionista asignado.
-        • Seguimiento médico con deportólogo y endocrinólogo si necesitás suplementación.
-        • Coaching motivacional con psicólogo especializado en deporte.
-        • Clases de yoga para potenciar tu bienestar físico y emocional.`,
+        1. Entrenamiento avanzado a nivel competitivo. Con nutrición + seguimiento médico (deportólogo) 
+        2. Coaching motivacional y clases de yoga.
+        3. Ebooks, talleres de entrenamiento.
+        4. Acompañamiento cercano y personalizado, vía chat para dudas, grupo de contención y motivación.`,
     },
   ];
 
@@ -132,7 +133,7 @@ export default function PlansSection() {
                   .split("\n")
                   .filter((line) => line.trim() !== "")
                   .map((line, i) => (
-                    <li key={i}>✓ {line.trim().replace(/^•\s*/, "")}</li>
+                    <li key={i}>{line.trim().replace(/^•\s*/, "")}</li>
                   ))}
               </ul>
 
