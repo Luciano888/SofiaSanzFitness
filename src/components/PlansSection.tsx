@@ -20,7 +20,7 @@ export default function PlansSection() {
   const planes = [
     {
       nombre: "Entrenamiento Personalizado",
-      precio: "$20",
+      precio: "ARS 80.000 x 6 semanas",
       imagen: "anual.jpg",
       iconos: [
         { icono: <FaMobileAlt />, texto: "App fácil de usar" },
@@ -28,14 +28,14 @@ export default function PlansSection() {
         { icono: <FaHeartbeat />, texto: "Seguimiento y rutinas" },
       ],
       descripcion: `
-        1. Rutina adaptada a tus objetivos, nivel y tiempos.
-        2. Acceso a app con videos, series, repeticiones y descansos.
-        3. Cambios de rutina y seguimiento cada 15 días.
-        4. Soporte constante para dudas y acompañamiento.`,
+        • Rutina adaptada a tus objetivos, nivel y tiempos.
+        • Acceso a app con videos, series, repeticiones y descansos.
+        • Cambios de rutina y seguimiento cada 15 días.
+        • Soporte constante para dudas y acompañamiento.`,
     },
     {
       nombre: "Entrenamiento + Nutrición",
-      precio: "$40",
+      precio: "ARS 80.000 x 6 semanas",
       imagen: "trimestral2.jpg",
       iconos: [
         { icono: <FaAppleAlt />, texto: "Nutrición personalizada" },
@@ -43,14 +43,13 @@ export default function PlansSection() {
         { icono: <FaBook />, texto: "Recetas y progreso" },
       ],
       descripcion: `
-        1. Todo lo incluido en el plan anterior.
-        2. Plan nutricional personalizado por nutricionista.
-        3. Seguimiento integral cada 15 días.
-        4. Asesoría continua y comunicación directa.`,
+        • Todo lo incluido en el plan anterior.
+        • Plan nutricional personalizado por nutricionista.
+        • Seguimiento integral cada 15 días.
+        • Asesoría continua y comunicación directa.`,
     },
     {
-      nombre: "Método Wellness",
-      precio: "$60",
+      nombre: "Método Wellness – glúteos más grandes en 12 semanas",
       imagen: "competicion2.jpeg",
       iconos: [
         { icono: <FaUserMd />, texto: "Soporte médico" },
@@ -58,10 +57,12 @@ export default function PlansSection() {
         { icono: <FaUserFriends />, texto: "Coaching y referidos" },
       ],
       descripcion: `
-        1. Entrenamiento avanzado a nivel competitivo. Con nutrición + seguimiento médico (deportólogo) 
-        2. Coaching motivacional y clases de yoga.
-        3. Ebooks, talleres de entrenamiento.
-        4. Acompañamiento cercano y personalizado, vía chat para dudas, grupo de contención y motivación.`,
+        • Videollamada inicial personalizada, hablemos sobre tu objetivo! 
+• Alto rendimiento: entrenamientos avanzados para nivel competitivo, acceso exclusivo a nuestra app con videos explicativos⁠.
+• Plan 100% personalizado.
+• Con cambios cada 15 días.
+• Equipo multidisciplinario a tu lado: nutricionista, deportólogo, clases de yoga y coach motivacional.
+• Comunidad activa con apoyo constante y motivación diaria.`,
     },
   ];
 
@@ -133,7 +134,7 @@ export default function PlansSection() {
                   .split("\n")
                   .filter((line) => line.trim() !== "")
                   .map((line, i) => (
-                    <li key={i}>{line.trim().replace(/^•\s*/, "")}</li>
+                    <li key={i}>{line.trim().replace(/^\s*/, "")}</li>
                   ))}
               </ul>
 

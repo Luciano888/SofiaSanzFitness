@@ -164,7 +164,7 @@
   padding: 0;
   margin: 0;
   text-align: left;
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   color: black;
   line-height: 1.4;
   width: 100%; /* Asegura que la lista ocupe el ancho disponible */
@@ -172,6 +172,11 @@
   overflow-y: auto; /* Si el texto es muy largo, permite scroll */
   padding-right: 5px; /* Espacio para la barra de scroll si aparece */
 }
+
+.cardsContainer .card:nth-child(3) .descriptionList {
+  font-size: 0.6rem;
+}
+
 
 .descriptionList li {
   margin-bottom: 0.4rem;
@@ -186,6 +191,7 @@
   margin-right: 0.5rem;
   flex-shrink: 0;
 }
+
 .descriptionList li::first-letter {
   font-weight: bold; /* Make the checkmark bold */
   color: #b1005d; /* Apply color to the checkmark */
