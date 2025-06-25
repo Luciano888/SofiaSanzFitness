@@ -1,5 +1,5 @@
 "use client";
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 import styles from "./styles/PlansSection.module.css";
 import {
   FaMobileAlt,
@@ -11,11 +11,14 @@ import {
 } from "react-icons/fa";
 
 export default function PlansSection() {
-  const [formVisibleIndex, setFormVisibleIndex] = useState<number | null>(null);
   const [mobileOverlayIndex, setMobileOverlayIndex] = useState<number | null>(
     null
   );
-  const formRef = useRef<HTMLFormElement | null>(null);
+
+  // 👉 Teléfono de WhatsApp (sin + ni espacios)
+  const PHONE = "376663918";
+  const BASE_TEXT =
+    "¡Hola Sofi! Quiero inscribirme al siguiente plan de entrenamiento:";
 
   const planes = [
     {
@@ -58,30 +61,27 @@ export default function PlansSection() {
       ],
       descripcion: `
         • Videollamada inicial personalizada, hablemos sobre tu objetivo! 
-• Alto rendimiento: entrenamientos avanzados para nivel competitivo, acceso exclusivo a nuestra app con videos explicativos⁠.
-• Plan 100% personalizado.
-• Con cambios cada 15 días.
-• Equipo multidisciplinario a tu lado: nutricionista, deportólogo, clases de yoga y coach motivacional.
-• Comunidad activa con apoyo constante y motivación diaria.`,
+        • Alto rendimiento: entrenamientos avanzados para nivel competitivo, acceso exclusivo a nuestra app con videos explicativos⁠.
+        • Plan 100% personalizado.
+        • Con cambios cada 15 días.
+        • Equipo multidisciplinario a tu lado: nutricionista, deportólogo, clases de yoga y coach motivacional.
+        • Comunidad activa con apoyo constante y motivación diaria.`,
     },
   ];
 
-  useEffect(() => {
-    if (formRef.current && formVisibleIndex !== null) {
-      formRef.current.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-    }
-  }, [formVisibleIndex]);
+  const getWaLink = (planNombre: string, planPrecio?: string) => {
+    const text = `${BASE_TEXT}%0A ${planNombre} ¡Gracias!`;
+    return `https://api.whatsapp.com/send?phone=${PHONE}&text=${text}`;
+  };
 
   return (
     <section id="planes" className={styles.section}>
-      <br />
       <h2 className={styles.titulo}>Planes de Entrenamiento</h2>
+
       <div className={styles.cardsContainer}>
         {planes.map((plan, index) => (
           <div key={index} className={`${styles.card} rounded-2xl shadow-lg`}>
+            {/* Imagen */}
             <div className={styles.imageContainer}>
               <img
                 src={plan.imagen}
@@ -90,11 +90,30 @@ export default function PlansSection() {
               />
             </div>
 
+            {/* Contenido visible */}
             <div className={`${styles.staticContent} text-center p-4`}>
-              <h3 className={styles.tituloCard}>{plan.nombre}</h3>
-              <p className={styles.precio}>{plan.precio}</p>
+              <h3 className={styles.tituloCard}>
+                {index === 2 ? (
+                  <>
+                    Método Wellness <br />
+                    – glúteos más grandes en 12 semanas
+                  </>
+                ) : (
+                  plan.nombre
+                )}
+              </h3>
 
-              <div className={styles.iconosRow}>
+              {/* Mostrar precio si hay, o mantener altura si no */}
+              <p className={styles.precio}>
+                {plan.precio ? plan.precio : "\u00A0"}
+              </p>
+
+              {/* Íconos con margin extra solo para la tercera tarjeta */}
+              <div
+                className={`${styles.iconosRow} ${
+                  index === 2 ? styles.extraMarginTop : ""
+                }`}
+              >
                 {plan.iconos.map((item, i) => (
                   <div key={i} className={styles.iconoItem}>
                     <div className={styles.icono}>{item.icono}</div>
@@ -103,16 +122,17 @@ export default function PlansSection() {
                 ))}
               </div>
 
-              <button
+              {/* Botón WhatsApp */}
+              <a
+                href={getWaLink(plan.nombre, plan.precio)}
+                target="_blank"
+                rel="noopener noreferrer"
                 className={styles.boton}
-                onClick={() =>
-                  setFormVisibleIndex(formVisibleIndex === index ? null : index)
-                }
               >
                 Quiero inscribirme
-              </button>
+              </a>
 
-              {/* BOTÓN PARA MOBILE: Ver detalles */}
+              {/* Botón ver detalles (solo mobile) */}
               <button
                 className={styles.mobileVerDetallesBtn}
                 onClick={() => setMobileOverlayIndex(index)}
@@ -121,24 +141,25 @@ export default function PlansSection() {
               </button>
             </div>
 
-            {/* Overlay description con control mobile */}
+            {/* Overlay con descripción */}
             <div
               className={`${styles.overlayDescription} ${
                 mobileOverlayIndex === index ? styles.showOverlayMobile : ""
               }`}
             >
               <h3 className={styles.overlayTituloCard}>{plan.nombre}</h3>
-              <p className={styles.overlayPrecio}>{plan.precio}</p>
+              {plan.precio && (
+                <p className={styles.overlayPrecio}>{plan.precio}</p>
+              )}
               <ul className={styles.descriptionList}>
                 {plan.descripcion
                   .split("\n")
                   .filter((line) => line.trim() !== "")
                   .map((line, i) => (
-                    <li key={i}>{line.trim().replace(/^\s*/, "")}</li>
+                    <li key={i}>{line.trim()}</li>
                   ))}
               </ul>
 
-              {/* BOTÓN VOLVER en overlay */}
               <button
                 className={styles.mobileVolverBtn}
                 onClick={() => setMobileOverlayIndex(null)}
@@ -149,68 +170,6 @@ export default function PlansSection() {
           </div>
         ))}
       </div>
-
-      {/* Formulario ancho al final */}
-      {formVisibleIndex !== null && (
-        <div className={styles.formWrapper}>
-          <form
-            ref={formRef}
-            className={styles.formularioAncho}
-            onSubmit={async (e) => {
-              e.preventDefault();
-
-              const form = e.currentTarget;
-              const nombre = form.nombre.value;
-              const email = form.email.value;
-              const consulta = form.consulta.value;
-              const plan = planes[formVisibleIndex].nombre;
-
-              try {
-                const res = await fetch("/api/send-confirmation", {
-                  method: "POST",
-                  headers: { "Content-Type": "application/json" },
-                  body: JSON.stringify({ nombre, email, consulta, plan }),
-                });
-
-                if (res.ok) {
-                  alert("¡Formulario enviado con éxito! Revisá tu email.");
-                  form.reset();
-                  setFormVisibleIndex(null);
-                } else {
-                  alert("Error al enviar el correo. Intentá más tarde.");
-                }
-              } catch (err) {
-                console.error(err);
-                alert("Ocurrió un error al enviar el formulario.");
-              }
-            }}
-          >
-            <h3>
-              Formulario de inscripción al{" "}
-              <strong>{planes[formVisibleIndex].nombre}</strong>
-            </h3>
-
-            <div className={styles.formGroup}>
-              <label htmlFor="nombre">Nombre</label>
-              <input type="text" id="nombre" name="nombre" required />
-            </div>
-
-            <div className={styles.formGroup}>
-              <label htmlFor="email">Email</label>
-              <input type="email" id="email" name="email" required />
-            </div>
-
-            <div className={styles.formGroup}>
-              <label htmlFor="consulta">Consulta</label>
-              <textarea id="consulta" name="consulta" rows={4}></textarea>
-            </div>
-
-            <button type="submit" className={styles.botonEnviar}>
-              Enviar
-            </button>
-          </form>
-        </div>
-      )}
     </section>
   );
 }

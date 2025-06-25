@@ -85,7 +85,7 @@
   font-size: 1.1rem;
   color: #222;
   font-weight: 600;
-  margin: 1.5rem 0 1.5rem 0;
+  margin: 2rem 0 1.5rem 0;
 }
 
 .iconosRow {
@@ -93,7 +93,13 @@
   justify-content: center;
   gap: 1rem; /* Ajustar gap para que los textos quepan */
   flex-wrap: nowrap;
+  padding-top: 1rem;
 }
+
+.extraMarginTop {
+  margin-top: -1.3rem; /* Ajustalo a gusto */
+}
+
 
 .iconoItem {
   display: flex;
@@ -174,7 +180,7 @@
 }
 
 .cardsContainer .card:nth-child(3) .descriptionList {
-  font-size: 0.6rem;
+  font-size: 0.65rem;
 }
 
 
@@ -210,8 +216,9 @@
   bottom: 1rem; /* Ajustar posición para que no haya espacio extra */
   left: 50%;
   transform: translateX(-50%);
-  width: 50%;
+  text-decoration: none;
   z-index: 2; /* Asegura que el botón esté por encima del overlay */
+  padding: 0.5rem;
 }
 
 .boton:hover {
@@ -366,5 +373,15 @@
 
   .mobileVolverBtn:hover {
     background-color: #8c0049;
+  }
+}
+
+@media (max-width: 640px) {
+  .overlayTituloCard,
+  .overlayPrecio {
+    display: none !important;
+  }
+  .descriptionList {
+    padding-top: 1rem; /* o el espacio que quieras */
   }
 }
