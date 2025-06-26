@@ -16,7 +16,7 @@ export default function PlansSection() {
   );
 
   // 👉 Teléfono de WhatsApp en formato internacional (sin +)
-  const PHONE = "549376663918";
+  const PHONE = "376663918";
   const BASE_TEXT =
     "¡Hola Sofi! Quiero inscribirme al siguiente plan:";
 
