@@ -15,15 +15,15 @@ export default function PlansSection() {
     null
   );
 
-  // 👉 Teléfono de WhatsApp (sin + ni espacios)
-  const PHONE = "376663918";
+  // 👉 Teléfono de WhatsApp en formato internacional (sin +)
+  const PHONE = "549376663918";
   const BASE_TEXT =
-    "¡Hola Sofi! Quiero inscribirme al siguiente plan de entrenamiento:";
+    "¡Hola Sofi! Quiero inscribirme al siguiente plan:";
 
   const planes = [
     {
       nombre: "Entrenamiento Personalizado",
-      precio: "ARS 80.000 x 6 semanas",
+      precio: "ARS 60.000 x 6 semanas",
       imagen: "anual.jpg",
       iconos: [
         { icono: <FaMobileAlt />, texto: "App fácil de usar" },
@@ -70,8 +70,9 @@ export default function PlansSection() {
   ];
 
   const getWaLink = (planNombre: string, planPrecio?: string) => {
-    const text = `${BASE_TEXT}%0A ${planNombre} ¡Gracias!`;
-    return `https://api.whatsapp.com/send?phone=${PHONE}&text=${text}`;
+    const body = `${BASE_TEXT}\n${planNombre} ¡Gracias!`;
+    const text = encodeURIComponent(body);
+    return `https://wa.me/${PHONE}?text=${text}`;
   };
 
   return (
@@ -103,12 +104,10 @@ export default function PlansSection() {
                 )}
               </h3>
 
-              {/* Mostrar precio si hay, o mantener altura si no */}
               <p className={styles.precio}>
                 {plan.precio ? plan.precio : "\u00A0"}
               </p>
 
-              {/* Íconos con margin extra solo para la tercera tarjeta */}
               <div
                 className={`${styles.iconosRow} ${
                   index === 2 ? styles.extraMarginTop : ""
@@ -122,7 +121,6 @@ export default function PlansSection() {
                 ))}
               </div>
 
-              {/* Botón WhatsApp */}
               <a
                 href={getWaLink(plan.nombre, plan.precio)}
                 target="_blank"
@@ -132,7 +130,6 @@ export default function PlansSection() {
                 Quiero inscribirme
               </a>
 
-              {/* Botón ver detalles (solo mobile) */}
               <button
                 className={styles.mobileVerDetallesBtn}
                 onClick={() => setMobileOverlayIndex(index)}
