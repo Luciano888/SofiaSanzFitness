@@ -15,7 +15,8 @@ export default function PlansSection() {
     null
   );
 
-  // 👉 Teléfono de WhatsApp en formato internacional (sin +)
+  // 👉 Teléfono de WhatsApp (formato internacional, sin +).
+  //    Si tu público está fuera de Argentina, incluí “549…”.
   const PHONE = "376663918";
   const BASE_TEXT = "¡Hola Sofi! Quiero inscribirme al siguiente plan:";
 
@@ -68,12 +69,17 @@ export default function PlansSection() {
     },
   ];
 
+  /** Construye la URL de WhatsApp con el mensaje precargado */
   const getWaLink = (planNombre: string) => {
     const body = `${BASE_TEXT}\n${planNombre}.\n¡Gracias!`;
-
     const text = encodeURIComponent(body);
-
     return `https://api.whatsapp.com/send?phone=${PHONE}&text=${text}`;
+  };
+
+  /** Abre la conversación en una nueva pestaña (mejor para desktop) */
+  const openWhatsApp = (planNombre: string) => {
+    const url = getWaLink(planNombre);
+    window.open(url, "_blank");
   };
 
   return (
@@ -121,15 +127,15 @@ export default function PlansSection() {
                 ))}
               </div>
 
-              <a
-                href={getWaLink(plan.nombre, plan.precio)}
-                target="_blank"
-                rel="noopener noreferrer"
+              {/* Botón que abre WhatsApp */}
+              <button
+                onClick={() => openWhatsApp(plan.nombre)}
                 className={styles.boton}
               >
                 Quiero inscribirme
-              </a>
+              </button>
 
+              {/* Botón ver detalles (solo mobile) */}
               <button
                 className={styles.mobileVerDetallesBtn}
                 onClick={() => setMobileOverlayIndex(index)}
