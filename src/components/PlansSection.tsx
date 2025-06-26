@@ -17,8 +17,7 @@ export default function PlansSection() {
 
   // 👉 Teléfono de WhatsApp en formato internacional (sin +)
   const PHONE = "376663918";
-  const BASE_TEXT =
-    "¡Hola Sofi! Quiero inscribirme al siguiente plan:";
+  const BASE_TEXT = "¡Hola Sofi! Quiero inscribirme al siguiente plan:";
 
   const planes = [
     {
@@ -69,9 +68,11 @@ export default function PlansSection() {
     },
   ];
 
-  const getWaLink = (planNombre: string, planPrecio?: string) => {
-    const body = `${BASE_TEXT}\n${planNombre} ¡Gracias!`;
+  const getWaLink = (planNombre: string) => {
+    const body = `${BASE_TEXT}\n${planNombre}.\n¡Gracias!`;
+
     const text = encodeURIComponent(body);
+
     return `https://api.whatsapp.com/send?phone=${PHONE}&text=${text}`;
   };
 
@@ -96,8 +97,7 @@ export default function PlansSection() {
               <h3 className={styles.tituloCard}>
                 {index === 2 ? (
                   <>
-                    Método Wellness <br />
-                    – glúteos más grandes en 12 semanas
+                    Método Wellness <br />– glúteos más grandes en 12 semanas
                   </>
                 ) : (
                   plan.nombre
