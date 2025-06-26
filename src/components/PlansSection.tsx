@@ -72,7 +72,7 @@ export default function PlansSection() {
   const getWaLink = (planNombre: string, planPrecio?: string) => {
     const body = `${BASE_TEXT}\n${planNombre} ¡Gracias!`;
     const text = encodeURIComponent(body);
-    return `https://wa.me/${PHONE}?text=${text}`;
+    return `https://api.whatsapp.com/send?phone=${PHONE}&text=${text}`;
   };
 
   return (
