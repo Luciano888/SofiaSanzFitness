@@ -1,0 +1,177 @@
+.testimonios {
+  padding: 5rem 2rem;
+  background: linear-gradient(180deg, #fef6f2 0%, var(--color1) 100%);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.testimonios::before {
+  content: '';
+  position: absolute;
+  top: -20%;
+  right: -10%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(255, 156, 175, 0.1) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.titulo {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0 0 3rem 0;
+  color: var(--primary);
+  letter-spacing: -0.5px;
+  position: relative;
+  display: inline-block;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.titulo::after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-light), var(--primary));
+  border-radius: 2px;
+}
+
+.sliderContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.flecha {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 1rem;
+  color: #333;
+}
+
+.flecha:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.sliderWrapper {
+  overflow: hidden;
+  max-width: 1200px;
+  min-height: 500px;
+  transition: min-height 0.3s ease;
+  width: 100%;
+  padding-right: 20px; /* Espacio para que la última tarjeta se vea completa */
+  box-sizing: border-box;
+}
+
+.sliderInner {
+  display: flex;
+  transition: transform 0.6s ease;
+}
+
+.tarjetaTestimonio {
+  flex: 0 0 auto;
+  width: 320px;
+  min-height: 480px;
+  background-color: #fff;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-right: 20px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: visible; /* Cambiado de hidden a visible para que no corte contenido */
+  box-sizing: border-box;
+}
+
+.tarjetaTestimonio::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-light), var(--primary));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+
+.tarjetaTestimonio:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 35px rgba(177, 0, 93, 0.2);
+}
+
+.tarjetaTestimonio:hover::before {
+  transform: scaleX(1);
+}
+
+.tarjetaTestimonio:last-child {
+  margin-right: 20px; /* Mantener margen para que se vea completo */
+}
+
+.tarjetaTestimonio img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  border-radius: 15px;
+  margin-bottom: 1.5rem;
+  transition: transform 0.4s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.tarjetaTestimonio:hover img {
+  transform: scale(1.05);
+}
+
+.mensaje {
+  font-size: 1rem;
+  color: #333;
+  flex-grow: 1;
+  line-height: 1.6;
+  margin: 0;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  min-height: auto;
+}
+
+/* ✅ RESPONSIVE: pantalla chica = tarjeta ocupa todo el ancho */
+@media (max-width: 768px) {
+  .sliderContainer {
+    flex-direction: column;
+  }
+
+  .sliderWrapper {
+    max-width: 100%;
+    min-height: auto;
+    padding-right: 0;
+  }
+
+  .sliderInner {
+    width: 100%;
+  }
+
+  .tarjetaTestimonio {
+    width: 100% !important;
+    margin-right: 0 !important;
+    min-height: auto;
+    box-sizing: border-box;
+  }
+
+  .tarjetaTestimonio:last-child {
+    margin-right: 0 !important;
+  }
+}
