@@ -21,7 +21,7 @@ export default function PlansSection() {
   const planes = [
     {
       nombre: "Plan de Entrenamiento",
-      precio: "$20",
+      precio: "",
       imagen: "/anual.jpg",
       iconos: [
         { icono: <FaMobileAlt />, texto: "App fácil de usar" },
@@ -37,7 +37,7 @@ export default function PlansSection() {
     },
     {
       nombre: "Plan de Alimentación y Entrenamiento",
-      precio: "$40",
+      precio: "",
       imagen: "/trimestral2.jpg",
       iconos: [
         { icono: <FaAppleAlt />, texto: "Nutrición personalizada" },
@@ -52,7 +52,7 @@ export default function PlansSection() {
     },
     {
       nombre: "Método wellness «VIP»",
-      precio: "$60",
+      precio: "",
       imagen: "/competicion2.jpeg",
       iconos: [
         { icono: <FaUserMd />, texto: "Soporte médico" },
@@ -93,7 +93,7 @@ export default function PlansSection() {
 
             <div className={`${styles.staticContent} text-center p-4`}>
               <h3 className={styles.tituloCard}>{plan.nombre}</h3>
-              <p className={styles.precio}>{plan.precio}</p>
+              {/* <p className={styles.precio}>{plan.precio}</p> */}
 
               <div className={styles.iconosRow}>
                 {plan.iconos.map((item, i) => (
@@ -129,7 +129,7 @@ export default function PlansSection() {
               }`}
             >
               <h3 className={styles.overlayTituloCard}>{plan.nombre}</h3>
-              <p className={styles.overlayPrecio}>{plan.precio}</p>
+              {/* <p className={styles.overlayPrecio}>{plan.precio}</p> */}
               <ul className={styles.descriptionList}>
                 {plan.descripcion
                   .split("\n")
